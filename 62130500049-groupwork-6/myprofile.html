@@ -14,36 +14,167 @@
     <!-- https://v3.vuejs.org/guide/installation.html#release-notes -->
     <!-- Vue CDN -->
     <script src="https://unpkg.com/vue@next"></script>
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Poppins:weight@100;200;300;400;500;600;700;800&display=swap");
+
+        body {
+            background-color: #535fe6;
+            font-family: "Poppins", sans-serif;
+            font-weight: 300
+        }
+
+        .container {
+            height: 100vh
+        }
+
+        .card {
+            width: 380px;
+            padding: 15px;
+            border: none;
+            background-color: #fff;
+            margin-left: 50px; 
+            margin-top: 50px;
+        }
+
+        .notify-text {
+            font-size: 14px
+        }
+
+        .buttons {
+            font-size: 12px;
+            height: 32px
+        }
+
+        .form-check-label {
+            font-size: 14px
+        }
+
+        .accounts {
+            font-size: 14px
+        }
+
+        .outline {
+            border: 1px solid #e3eae6;
+            border-radius: 5px;
+            background: #f4fcf8;
+            margin-top: 10px
+        }
+
+        .image-size {
+            font-size: 12px;
+            color: #9c9c9c;
+            margin-top: 7px
+        }
+
+        .form-control {
+            border-bottom: 1px solid #eee !important;
+            border: none;
+            font-weight: 500;
+            padding: .375rem .15rem
+        }
+
+        .form-control:focus {
+            color: #495057;
+            background-color: #fff;
+            border-color: #8bbafe;
+            outline: 0;
+            box-shadow: none;
+            border-radius: 0px;
+            padding: .375rem .15rem;
+            padding-bottom: 1px;
+            border-bottom: 1px solid blue !important
+        }
+
+        .inputbox {
+            position: relative;
+            margin-bottom: 20px;
+            width: 100%
+        }
+
+        .inputbox span {
+            position: absolute;
+            top: 10px;
+            left: 5px;
+            font-size: 13px;
+            transition: 0.5s
+        }
+
+        .inputbox i {
+            position: absolute;
+            top: 13px;
+            right: 8px;
+            transition: 0.5s;
+            color: #3F51B5
+        }
+
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0
+        }
+
+        .inputbox input:focus~span {
+            transform: translateX(-4px) translateY(-13px);
+            font-size: 10px
+        }
+
+        .inputbox input:valid~span {
+            transform: translateX(-4px) translateY(-13px);
+            font-size: 10px
+        }
+    </style>
 </head>
 <!-- Credit: https://www.youtube.com/watch?v=v74SZBVMPa0 -->
 
 <body>
-    <div class="h-screen bg-gray-300">
-        <div class="container flex justify-center py-20">
-            <div class="p-3 bg-white rounded-xl max-w-lg hover:shadow">
-                <div id="app" class="flex justify-between w-full"> <img v-bind:src="img" width="150" class="rounded-lg">
-                    <div class="ml-2">
-                        <div class="p-3">
-                            <h3 class="text-2xl">{{name}}</h3> <span>{{job}}</span>
+    <div id="app">
+        <form @submit.prevent="checkForm">
+            <div class="container d-flex justify-content-center align-items-center">
+                <p v-if="errors" class="text-red-500">
+                    <b>Please correct the following error(s):</b>
+                <ul>
+                    <li v-for="error in errors" class="text-red-500">{{ error }}</li>
+                </ul>
+                </p>
+                <div class="card py-4 ">
+                    <h5 class="font-weight-normal">Personal Details</h5> <span class="notify-text">Feel free to edit
+                        your
+                        basic
+                        information such as name, email etc.</span>
+                    <div class="mt-3"> <span class="accounts">Merged Accounts</span>
+                        <div class="d-flex justify-content-between p-2 outline"> <img
+                                src="https://i.pinimg.com/564x/01/c7/da/01c7dacab25df0d6e9f038bdc6577419.jpg"
+                                class="rounded" width="50">
+                            <div class="d-flex flex-column mr-1">
+                                <div class="d-flex flex-row"> <button class="btn btn-primary btn-sm buttons">Upload new
+                                        photo</button> <button
+                                        class="btn btn-outline-danger buttons btn-sm ml-3">Remove</button> </div> <span
+                                    class="image-size">Image format with max size of 3MB</span>
+                            </div>
                         </div>
-                        <div class="flex justify-between items-center p-3 bg-gray-200 rounded-lg">
-                            <div class="mr-3"> <span class="text-gray-400 block">{{post}}</span> <span class="font-bold text-black text-xl">{{posts}}</span> </div>
-                            <div class="mr-3"> <span class="text-gray-400 block">{{follower}}</span> <span class="font-bold text-black text-xl">{{followers}}</span> </div>
-                            <div> <span class="text-gray-400 block">{{following1}}</span> <span class="font-bold text-black text-xl">{{following2}}</span> </div>
+                    </div>
+                    <div class="mt-3">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="inputbox mt-3"> <input type="text" name="name" class="form-control"
+                                        required="required"> <span>First Name</span> </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="inputbox mt-3"> <input type="text" name="name" class="form-control"
+                                        required="required"> <span>Last Name</span> </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="inputbox mt-3"> <input type="text" name="name" class="form-control"
+                                        required="required"> <span>Email Address</span> </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="flex justify-between items-center mt-2 gap-2"> <button class="w-full h-12 rounded-md border-2 text-md hover:shadow hover:bg-red-700 hover:border-red-700 hover:text-white ">Chat</button> <button class="w-full h-12 rounded-md bg-blue-700 text-white text-md hover:shadow hover:bg-blue-800">Chat</button> </div>
             </div>
-        </div>
+        </form>
     </div>
-    <!-- <div id="app">
-        <h1>{{msg}}</h1>
-      </div> -->
-    <!-- <p v-if="shown">You can see this message.</p>
-    <p v-show="shown">You can see this message.(v-show)</p>
-    <a v-bind:href="url">Please click here.</a> -->
-    <!-- Import Js -->
     <script src="./profile.js"></script>
 </body>
 

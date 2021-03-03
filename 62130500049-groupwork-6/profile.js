@@ -1,25 +1,68 @@
-const app = {
-
-    data() {
-        return {
-            name: 'Patiphannew',
-            job:'Hacker',
-            img:'https://fsa.zobj.net/crop.php?r=ZLZ8FtvKQk_ysDd08RTDwoTBpHUptQAGWTjbb__SpNgWEkI537BuBGUsx8-1Crgrff3SR9Nf_2_Bv8MeYLnHtzznwwGCffWCjTTyelsIPebpsOolSZF2GhkUOBQIYFYQEIq2gk2XL7iXEuuW',
-            post:'Posts',
-            follower:'Followers',
-            following1:'Following',
-            posts:'8',
-            followers:'162',
-            following2:'330',
-            // shown: true,
-            // url: 'http://www.sit.kmutt.ac.th'
+const constraints = {
+    firstname: {
+        presence: true,
+    },
+    lastname: {
+        presence: true,
+    },
+    age: {
+        presence: true,
+        numericality: {
+            lessThan: 150
         }
     },
-    // created(){​​​​
-    //     console.log('message is '+this.msg)
-    // }​​​​,
-    // updated(){
-    //     console.log('message change is'+this.msg)
-    // }
+    gender: {
+        presence: true,
+    },
+    email: {
+        presence: true,
+        email: true
+    },
+    phone: {
+        presence: true,
+        length: {
+            minimum: 10,
+            message: "must be at least 10 digits"
+        },
+    },
+    chosensubject: {
+        presence: true
+    }
 }
-mountedApp = Vue.createApp(app).mount('#app')
+
+const app = Vue.createApp({
+    data() {
+        return {
+            firstname: null,
+            lastname: null,
+            age: null,
+            gender: null,
+            email: null,
+            phone: null,
+            chosensubject: null,
+            subject_lists: [{ subject_id: 1, subject_name: 'Intro to Vue 3' },
+            { subject_id: 2, subject_name: 'Vue 3 Forms' },
+            { subject_id: 3, subject_name: 'Vue 3 Reactivity' }],
+            errors: null,
+        }
+    },
+    methods: {
+        checkForm() {
+            this.errors = validate({
+                firstname: this.firstname,
+                lastname: this.lastname,
+                age: this.age,
+                gender: this.gender,
+                email: this.email,
+                phone: this.phone,
+                chosensubject: this.chosensubject
+            },
+                constraints)
+            if (!this.errors) {
+                alert("Registered successfully.")
+            }
+        }
+    }
+})
+
+app.mount('#app')
