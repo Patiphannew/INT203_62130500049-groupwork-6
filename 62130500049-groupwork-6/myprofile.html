@@ -14,6 +14,7 @@
     <!-- https://v3.vuejs.org/guide/installation.html#release-notes -->
     <!-- Vue CDN -->
     <script src="https://unpkg.com/vue@next"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/validate.js/0.13.1/validate.min.js"></script>
     <style>
         @import url("https://fonts.googleapis.com/css2?family=Poppins:weight@100;200;300;400;500;600;700;800&display=swap");
 
@@ -32,7 +33,7 @@
             padding: 15px;
             border: none;
             background-color: #fff;
-            margin-left: 50px; 
+            margin-left: 50px;
             margin-top: 50px;
         }
 
@@ -130,12 +131,6 @@
     <div id="app">
         <form @submit.prevent="checkForm">
             <div class="container d-flex justify-content-center align-items-center">
-                <p v-if="errors" class="text-red-500">
-                    <b>Please correct the following error(s):</b>
-                <ul>
-                    <li v-for="error in errors" class="text-red-500">{{ error }}</li>
-                </ul>
-                </p>
                 <div class="card py-4 ">
                     <h5 class="font-weight-normal">Personal Details</h5> <span class="notify-text">Feel free to edit
                         your
@@ -157,20 +152,27 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="inputbox mt-3"> <input type="text" name="name" class="form-control"
-                                        required="required"> <span>First Name</span> </div>
+                                        required="required" v-model="firstname"> <span>First Name</span> </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="inputbox mt-3"> <input type="text" name="name" class="form-control"
-                                        required="required"> <span>Last Name</span> </div>
+                                        required="required" v-model="lastname"> <span>Last Name</span> </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="inputbox mt-3"> <input type="text" name="name" class="form-control"
-                                        required="required"> <span>Email Address</span> </div>
+                                        required="required" v-model="email"> <span>Email Address</span> </div>
                             </div>
                         </div>
                     </div>
+                    <button type="submit">Submit</button>
+                    <p v-if="errors" class="text-red-500">
+                        <b>Please correct the following error(s):</b>
+                    <ul>
+                        <li v-for="error in errors" class="text-red-500">{{ error }}</li>
+                    </ul>
+                    </p>
                 </div>
             </div>
         </form>
